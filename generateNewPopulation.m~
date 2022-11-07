@@ -1,0 +1,45 @@
+function newPop = generateNewPopulation(oldPopulation, sys)
+    [h, populationSize] = size(oldPopulation);
+    
+    
+    newPop = zeros(h, populationSize);
+    
+    mutation_probability = 0.1;
+    cross_over_probability = 0.9;
+    
+    for i=1:populationSize
+        kp = oldPopulation(1,i);
+        ki = oldPopulation(2,i);
+        kd = oldPopulation(3,i);
+        
+        oldPopulation(4,i) = calculateFitness(sys,kp,ki,kd);
+    end
+    
+    for i=1:populationSize
+        
+        [parent1, parent2] = selectParents(oldPopulation);
+        
+        r = rand();
+        
+        if r < cross_over_probability
+            child = crossover(parent1, parent2);
+        else
+            child = parent
+        
+        r = rand();
+        
+        if r < mutation_probability
+            child = mutation(child);
+        end
+        
+        newPop(1:3,i) = child(1:3,1);
+        
+        kp = child(1,1);
+        ki = child(2,1);
+        kd = child(3,1);
+        
+        newPop(4,i) = calculateFitness(sys,kp,ki,kd);
+        
+    end
+    
+end
