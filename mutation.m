@@ -27,8 +27,15 @@ function child = mutation(parent, mutation_probability)
 %     if (r < mutation_probability)
 %         child(3,1) = child(3,1) + gain*(rand() - 0.5);
 %     end
- flag = rand(size(parent))>mutation_probability;
+ sizeParent = size(parent);
+ flag = rand(sizeParent(2))>mutation_probability;
  child = parent;
- child(flag) = 1-parent(flag);
+ for i=1:sizeParent(1)
+     child_i = child(i,:);
+     parent_i = parent(i,:);
+     child_i(flag) = 1-parent_i(flag);
+     child(i,:) = child_i;
+ end
+
 
 end
