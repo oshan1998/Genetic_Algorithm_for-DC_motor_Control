@@ -6,8 +6,8 @@ function [fitness, closedLoopResponse] = calculateFitness(sys, kp, kd, ki)
     K = kp + ki/s + kd*s;
     
     T = feedback(K*sys, 1);
-    
-    t = 0:0.01:2;
+    dt=0.01;
+    t = 0:dt:2;
     error = 1-step(T,t);
     fitness = sum(t'.*abs(error)*dt);
     closedLoopResponse = [t' step(T,t)];
