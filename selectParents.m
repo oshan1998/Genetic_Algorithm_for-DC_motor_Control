@@ -1,5 +1,5 @@
 % parents are selected based on Roulette Wheel Selection
-function [parent1,parent2] = selectParents(population)
+function [parent1Indx,parent2Indx] = selectParents(population)
     fitnesses = population(4,:);
     % mapping fitness values to probabilities
     beta = 1;
@@ -15,8 +15,8 @@ function [parent1,parent2] = selectParents(population)
     
      parent_1_probability = rand();
      parent_2_probability = rand();
-     parent1 = find(parent_1_probability<=cumsumProbs,1,'first');
-     parent2 = find(parent_2_probability<=cumsumProbs,1,'first');
+     parent1Indx = find(parent_1_probability<=cumsumProbs,1,'first'); %return index of the selected parent
+     parent2Indx = find(parent_2_probability<=cumsumProbs,1,'first');
 %     
 %     cumalative_sum = 0;
 %     
