@@ -1,7 +1,7 @@
 % function is used to generate an initial population with random kp,ki,kd
 % values
 
-function[ population] = generateIntialPopulation(populationSize,sys)
+function[ population,cost] = generateIntialPopulation(populationSize,sys)
     %max_gain = 150;
     
     nDigit = 8;
@@ -23,6 +23,6 @@ function[ population] = generateIntialPopulation(populationSize,sys)
         
         
         cost = calculateFitness(sys,kp,ki,kd);
-        population(4,1,i) = cost;
+        population(4,1,i)
     end
 end

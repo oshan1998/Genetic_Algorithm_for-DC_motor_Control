@@ -40,15 +40,11 @@ function [child1, child2] = crossover(parent1, parent2)
 % single point crossover-------------------------------------------
     sizeOfParent = size(parent1);% number of digits in binary vector
     nDigit = sizeOfParent(2);
-    brkPoint = randi([1,nDigit-1]); % generate random value for the position to break the arrray
+    brkPoint = rand([1,nDigit-1]); % generate random value for the position to break the arrray
     child1_1 = [parent1(1,1:brkPoint) parent2(1,brkPoint+1:end)];
     child1_2 = [parent1(2,1:brkPoint) parent2(2,brkPoint+1:end)];
     child1_3 = [parent1(3,1:brkPoint) parent2(3,brkPoint+1:end)];
-    child1 = [child1_1;child1_2;child1_3];
-    child2_1 = [parent2(1,1:brkPoint) parent1(1,brkPoint+1:end)];
-    child2_2 = [parent2(2,1:brkPoint) parent1(2,brkPoint+1:end)];
-    child2_3 = [parent2(3,1:brkPoint) parent1(3,brkPoint+1:end)];
-    child2 = [child2_1;child2_2;child2_3];
+    child2 = [parent2(1:brkPoint) parent1(brkPoint+1:end)];
 % single point crossover-------------------------------------------    
 
 end

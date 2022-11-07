@@ -1,6 +1,6 @@
 % parents are selected based on Roulette Wheel Selection
-function [parent1Indx,parent2Indx] = selectParents(population,cost)
-    
+function [parent1Indx,parent2Indx] = selectParents(pop)
+    cost = pop(4,1,:);
     % mapping fitness values to probabilities
     beta = 1;
     avgCost = mean(cost);
