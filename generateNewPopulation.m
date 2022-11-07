@@ -1,8 +1,8 @@
-function [newPop] = generateNewPopulation(oldPopulation,sys)
+function [totPop] = generateNewPopulation(oldPopulation,sys)
     
     
     
-    newPop = zeros(4,8,200);
+    newPop = ones(4,8,200);
     
     mutation_probability = 0.1;
     cross_over_probability = 0.9;
@@ -43,13 +43,15 @@ function [newPop] = generateNewPopulation(oldPopulation,sys)
         
         newCost_1 = calculateFitness(sys,kp_1,ki_1,kd_1);
         newCost_2 = calculateFitness(sys,kp_2,ki_2,kd_2);
-        cost1 = zeros(1,8);
-        cost2 = zeros(1,8);
-        cost1(1,1) = newCost_1;
-        cost2(1,1) = newCost_2;
-        newPop(4,:,i) = cost1;
-        newPop(4,:,i+1) = cost2;
+        
+        newPop(4,1,i) = newCost_1;
+        newPop(4,1,i+1) = newCost_2;
+        
         
     end
+        newPop = newPop(:,:,1:end-1);
+        totPop = zeros(4,8,300);
+        totPop(:,:,1:100) = oldPopulation;
+        totPop(:,:,101:end) = newPop;
     
 end

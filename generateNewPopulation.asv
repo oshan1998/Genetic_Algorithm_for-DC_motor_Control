@@ -1,4 +1,4 @@
-function [newPop] = generateNewPopulation(oldPopulation,sys)
+function [totPop] = generateNewPopulation(oldPopulation,sys)
     
     
     
@@ -20,8 +20,8 @@ function [newPop] = generateNewPopulation(oldPopulation,sys)
         if r < cross_over_probability
             [child1,child2] = crossover(parent1, parent2);
         else
-            child1 = parent1;
-            child2 = parent2;
+            child1 = parent1(1:3,:);
+            child2 = parent2(1:3,:);
         end
         
         r = rand();
@@ -34,12 +34,15 @@ function [newPop] = generateNewPopulation(oldPopulation,sys)
         newPop(1:3,:,i) = child1;
         newPop(1:3,:,i+1) = child2;
         
-        kp_1 = child1(1,:);
-        ki_1 = child1(2,:);
-        kd_1 = child1(3,:);
+        kp_1 = binaryVectorToDecimal(child1(1,:));
+        ki_1 = binaryVectorToDecimal(child1(2,:));
+        kd_1 = binaryVectorToDecimal(child1(3,:));
+        kp_2 = binaryVectorToDecimal(child2(1,:));
+        ki_2 = binaryVectorToDecimal(child2(2,:));
+        kd_2 = binaryVectorToDecimal(child2(3,:));
         
         newCost_1 = calculateFitness(sys,kp_1,ki_1,kd_1);
-        newCost_2 = calculateFitness(sys,kp_1,ki_1,kd_1);
+        newCost_2 = calculateFitness(sys,kp_2,ki_2,kd_2);
         cost1 = zeros(1,8);
         cost2 = zeros(1,8);
         cost1(1,1) = newCost_1;
@@ -47,6 +50,10 @@ function [newPop] = generateNewPopulation(oldPopulation,sys)
         newPop(4,:,i) = cost1;
         newPop(4,:,i+1) = cost2;
         
+        
     end
+        totPop = zeros(4,8,301);
+        totPop(:,:,1:100) = oldPopulation;
+        totPop(:,:,101:end) = newPop;
     
 end
